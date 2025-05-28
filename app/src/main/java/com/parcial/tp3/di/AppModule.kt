@@ -1,7 +1,5 @@
 package com.parcial.tp3.di
 
-import com.parcial.tp3.data.remote.api.AuthApiService
-import com.parcial.tp3.data.repository.AuthRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,6 +10,14 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 import com.parcial.tp3.utils.Constants
+
+import com.parcial.tp3.data.remote.api.ProductApiService
+import com.parcial.tp3.data.remote.api.AuthApiService
+import com.parcial.tp3.data.service.AuthServiceImpl
+import com.parcial.tp3.data.service.ProductServiceImpl
+import com.parcial.tp3.shared.IProductService
+import com.parcial.tp3.shared.IAuthService
+
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -49,10 +55,19 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideAuthRepository(
+    fun provideAuthService(
         api: AuthApiService
-    ): AuthRepository = AuthRepository(api)
-}
+    ): IAuthService = AuthServiceImpl(api)
 
+    @Provides
+    @Singleton
+    fun provideProductApi(retrofit: Retrofit): ProductApiService =
+        retrofit.create(ProductApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideProductService(
+        api: ProductApiService
+    ): IProductService = ProductServiceImpl(api)
 
 }

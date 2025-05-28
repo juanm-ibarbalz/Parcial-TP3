@@ -3,11 +3,15 @@ package com.parcial.tp3.ui.screens.login
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.parcial.tp3.data.repository.AuthRepository
+import com.parcial.tp3.domain.model.User
+import com.parcial.tp3.shared.IAuthService
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel(
-    private val authRepository: AuthRepository
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val authService: IAuthService
 ) : ViewModel() {
 
     var username by mutableStateOf("")
@@ -25,6 +29,9 @@ class LoginViewModel(
     var loginSuccess by mutableStateOf(false)
         private set
 
+    var loggedUser by mutableStateOf<User?>(null)
+        private set
+
     fun onUsernameChange(newUsername: String) {
         username = newUsername
     }
@@ -38,7 +45,8 @@ class LoginViewModel(
         errorMessage = null
         viewModelScope.launch {
             try {
-                val response = authRepository.login(username, password)
+                val user = authService.login(username, password)
+                loggedUser = user
                 loginSuccess = true
             } catch (e: Exception) {
                 errorMessage = "Error al iniciar sesión"
