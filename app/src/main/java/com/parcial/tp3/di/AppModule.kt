@@ -13,10 +13,13 @@ import com.parcial.tp3.utils.Constants
 
 import com.parcial.tp3.data.remote.api.ProductApiService
 import com.parcial.tp3.data.remote.api.AuthApiService
+import com.parcial.tp3.data.remote.api.CartApiService
 import com.parcial.tp3.data.service.AuthServiceImpl
+import com.parcial.tp3.data.service.CartServiceImpl
 import com.parcial.tp3.data.service.ProductServiceImpl
 import com.parcial.tp3.shared.IProductService
 import com.parcial.tp3.shared.IAuthService
+import com.parcial.tp3.shared.ICartService
 
 
 @Module
@@ -48,16 +51,11 @@ object AppModule {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
+    //API Services
     @Provides
     @Singleton
     fun provideAuthApi(retrofit: Retrofit): AuthApiService =
         retrofit.create(AuthApiService::class.java)
-
-    @Provides
-    @Singleton
-    fun provideAuthService(
-        api: AuthApiService
-    ): IAuthService = AuthServiceImpl(api)
 
     @Provides
     @Singleton
@@ -66,8 +64,25 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideCartApiService(retrofit: Retrofit): CartApiService =
+        retrofit.create(CartApiService::class.java)
+
+    //Service Implementations
+    @Provides
+    @Singleton
+    fun provideAuthService(
+        api: AuthApiService
+    ): IAuthService = AuthServiceImpl(api)
+
+    @Provides
+    @Singleton
     fun provideProductService(
         api: ProductApiService
     ): IProductService = ProductServiceImpl(api)
+
+    @Provides
+    @Singleton
+    fun provideCartService(api: CartApiService): ICartService =
+        CartServiceImpl(api)
 
 }

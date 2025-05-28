@@ -22,7 +22,6 @@ class AuthServiceImpl @Inject constructor(
         // Por lo que no haria falta recibir un Response<LoginResponseDto>.
         // Con el DTO deberia ser suficiente por ahora.
 
-        val dto = api.login(LoginRequestDto(username, password))
-        return dto.toDomain()
+        return api.login(LoginRequestDto(username, password)).toDomain()
     }
 }
