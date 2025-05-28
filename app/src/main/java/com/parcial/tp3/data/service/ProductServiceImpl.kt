@@ -10,8 +10,8 @@ class ProductServiceImpl @Inject constructor(
     private val api: ProductApiService
 ) : IProductService {
 
-    override suspend fun getAll(): List<Product> {
-        return api.getAllProducts().products.map { it.toDomain() }
+    override suspend fun getAll(limit: Int, skip: Int): List<Product> {
+        return api.getProducts(limit, skip).products.map { it.toDomain() }
     }
 
     override suspend fun getById(id: Int): Product {

@@ -1,8 +1,8 @@
 package com.parcial.tp3.domain.model
 
-data class Product(
+data class ProductPreview(
     val id: Int,
-    val title: String,
+    val name: String,
     val price: Double,
-    val thumbnail: String
+    val image: String
 )
