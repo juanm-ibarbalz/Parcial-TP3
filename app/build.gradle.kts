@@ -56,6 +56,8 @@ dependencies {
 
     // Hilt
     implementation("com.google.dagger:hilt-android:2.48")
+    implementation(libs.androidx.room.common.jvm)
+    implementation(libs.androidx.room.runtime.android)
     kapt("com.google.dagger:hilt-compiler:2.48")
 
     // Hilt para ViewModel

@@ -1,5 +1,7 @@
 package com.parcial.tp3.di
 
+import android.content.Context
+import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -9,7 +11,12 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
+
 import com.parcial.tp3.utils.Constants
+
+import com.parcial.tp3.data.local.dao.FavouriteDao
+import com.parcial.tp3.data.local.db.AppDatabase
+import com.parcial.tp3.data.local.service.FavouriteServiceImpl
 
 import com.parcial.tp3.data.remote.api.ProductApiService
 import com.parcial.tp3.data.remote.api.AuthApiService
@@ -20,12 +27,14 @@ import com.parcial.tp3.data.service.ProductServiceImpl
 import com.parcial.tp3.shared.IProductService
 import com.parcial.tp3.shared.IAuthService
 import com.parcial.tp3.shared.ICartService
+import com.parcial.tp3.shared.IFavouriteService
 
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    // Network Layer
     @Provides
     @Singleton
     fun provideLoggingInterceptor(): HttpLoggingInterceptor =
@@ -33,6 +42,7 @@ object AppModule {
             level = HttpLoggingInterceptor.Level.BODY
         }
 
+    // OkHttpClient Instance
     @Provides
     @Singleton
     fun provideOkHttpClient(
@@ -41,6 +51,7 @@ object AppModule {
         .addInterceptor(logging)
         .build()
 
+    // Retrofit Instance
     @Provides
     @Singleton
     fun provideRetrofit(
@@ -50,6 +61,17 @@ object AppModule {
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
+
+    // Room Database Instance
+    @Provides
+    @Singleton
+    fun provideAppDatabase(context: Context): AppDatabase {
+        return Room.databaseBuilder(
+            context,
+            AppDatabase::class.java,
+            "petshop-db"
+        ).build()
+    }
 
     //API Services
     @Provides
@@ -84,5 +106,16 @@ object AppModule {
     @Singleton
     fun provideCartService(api: CartApiService): ICartService =
         CartServiceImpl(api)
+
+    // Favourites DAO & Service
+    @Provides
+    @Singleton
+    fun provideFavouriteDao(db: AppDatabase): FavouriteDao =
+        db.favouriteDao()
+
+    @Provides
+    @Singleton
+    fun provideFavouriteService(dao: FavouriteDao): IFavouriteService =
+        FavouriteServiceImpl(dao)
 
 }
