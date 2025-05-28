@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("kotlin-kapt")
 }
 
 android {
@@ -40,6 +41,25 @@ android {
 }
 
 dependencies {
+
+    // Retrofit (cliente HTTP)
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+
+    // Converter para trabajar con JSON
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // Cliente HTTP OkHttp (base)
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+
+    // OkHttp Logging para ver peticiones/respuestas en Logcat
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11")
+
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.48")
+    kapt("com.google.dagger:hilt-compiler:2.48")
+
+    // Hilt para ViewModel
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
