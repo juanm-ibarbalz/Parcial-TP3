@@ -1,4 +1,4 @@
-package com.parcial.tp3.components
+package com.parcial.tp3.Components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

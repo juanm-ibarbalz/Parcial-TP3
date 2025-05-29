@@ -5,17 +5,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.parcial.tp3.components.LocationDisplay
-import com.parcial.tp3.components.TopIcons
-import com.parcial.tp3.components.PromoBannerCard
 import androidx.compose.foundation.Image
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.layout.ContentScale
 import com.parcial.tp3.R
 import androidx.compose.ui.zIndex
-import com.parcial.tp3.components.BestSellerSection
-import com.parcial.tp3.components.CategorySection
-
+import com.parcial.tp3.Components.BestSellerSection
+import com.parcial.tp3.Components.PromoBannerCard
+import com.parcial.tp3.Components.TopIcons
+import com.parcial.tp3.Components.CategorySection
+import com.parcial.tp3.Components.LocationDisplay
 
 
 @Composable
@@ -45,10 +44,10 @@ fun HomeScreen() {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(300.dp)
-                .padding(bottom = 8.dp)
         ) {
             PromoBannerCard(
-                modifier = Modifier.offset(y = 45.dp)
+                modifier = Modifier
+                    .align(Alignment.CenterStart)
             )
 
             Image(
@@ -74,11 +73,15 @@ fun HomeScreen() {
             )
         }
 
-        CategorySection()
+        CategorySection(
+
+        )
 
         Spacer(modifier = Modifier.height(15.dp))
 
         BestSellerSection()
     }
 }
+
+
 
