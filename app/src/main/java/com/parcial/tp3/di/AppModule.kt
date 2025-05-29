@@ -11,6 +11,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
+import dagger.hilt.android.qualifiers.ApplicationContext
 
 import com.parcial.tp3.utils.Constants
 
@@ -65,7 +66,7 @@ object AppModule {
     // Room Database Instance
     @Provides
     @Singleton
-    fun provideAppDatabase(context: Context): AppDatabase {
+    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
         return Room.databaseBuilder(
             context,
             AppDatabase::class.java,

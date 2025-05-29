@@ -1,6 +1,7 @@
 package com.parcial.tp3.data.local.dao
 
 import androidx.room.*
+import androidx.room.Dao
 import com.parcial.tp3.data.local.entity.FavouriteEntity
 import kotlinx.coroutines.flow.Flow
 
