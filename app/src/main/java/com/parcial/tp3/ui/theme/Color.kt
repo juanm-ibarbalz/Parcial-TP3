@@ -11,3 +11,4 @@ val DarkerGrey = Color(0xFFE5E4E3)          // GrisOscuro – Separadores o deta
 val ProfileGrey = Color(0xFFD9D9D9)         // GrisPFP – Fondo de imagen de perfil
 val SettingsGrey = Color(0xFFE7E7E7)        // GrisSettings – Fondo de ajustes/config
 val AlertRed = Color(0xFFFF4D4F)            // Rojo – Íconos de borrar, alertas
+val BackgroundWhite = Color(0xFFFFFFFF)     // Blanco - Fondo

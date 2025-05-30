@@ -1,9 +1,10 @@
-package com.parcial.tp3.Components
+package com.parcial.tp3.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -11,16 +12,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.parcial.tp3.R
+import com.parcial.tp3.ui.theme.LightSurfaceGrey
+import com.parcial.tp3.ui.theme.MediumGrey
+import com.parcial.tp3.ui.theme.PrimaryBlue
 
 
 @Composable
 fun CategoryChip(text: String, selected: Boolean) {
-    val backgroundColor = if (selected) Color(0xFF7A5FFF) else Color(0xFFF0F0F0)
-    val textColor = if (selected) Color.White else Color.Gray
+    val backgroundColor = if (selected) PrimaryBlue else LightSurfaceGrey
+    val textColor = if (selected) Color.White else MediumGrey
 
     Box(
         modifier = Modifier
@@ -29,7 +31,7 @@ fun CategoryChip(text: String, selected: Boolean) {
             .padding(horizontal = 20.dp, vertical = 12.dp),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = text, color = textColor)
+        Text(text = text, color = textColor, style = MaterialTheme.typography.labelSmall)
     }
 }
 
@@ -43,13 +45,12 @@ fun CategorySection() {
         ) {
             Text(
                 text = "Category",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleLarge
             )
             Text(
                 text = "View All",
-                color = Color(0xFF7A5FFF),
-                fontSize = 14.sp
+                color = PrimaryBlue,
+                style = MaterialTheme.typography.labelSmall
             )
         }
 
@@ -66,7 +67,7 @@ fun CategorySection() {
                 modifier = Modifier
                     .size(44.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(Color(0xFFF0F0F0)),
+                    .background(LightSurfaceGrey),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(

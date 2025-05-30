@@ -22,6 +22,16 @@ val AppTypography = Typography(
         fontWeight = FontWeight.SemiBold,
         fontSize = 40.sp
     ),
+    displayMedium = TextStyle( // Poppins SemiBold 24sp
+        fontFamily = Poppins,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 24.sp
+    ),
+    displaySmall = TextStyle( // Poppins SemiBold 20sp
+        fontFamily = Poppins,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 20.sp
+    ),
     bodySmall = TextStyle( // Poppins Regular 12sp
         fontFamily = Poppins,
         fontWeight = FontWeight.Normal,

@@ -6,19 +6,34 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.Image
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.layout.ContentScale
 import com.parcial.tp3.R
 import androidx.compose.ui.zIndex
-import com.parcial.tp3.Components.BestSellerSection
-import com.parcial.tp3.Components.PromoBannerCard
-import com.parcial.tp3.Components.TopIcons
-import com.parcial.tp3.Components.CategorySection
-import com.parcial.tp3.Components.LocationDisplay
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.parcial.tp3.ui.components.BestSellerSection
+import com.parcial.tp3.ui.components.PromoBannerCard
+import com.parcial.tp3.ui.components.TopIcons
+import com.parcial.tp3.ui.components.CategorySection
+import com.parcial.tp3.ui.components.LocationDisplay
 
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    viewModel: ProductsViewModel = hiltViewModel()
+) {
+
+    LaunchedEffect(Unit) {
+        viewModel.loadBestSellers(limit = 2)
+    }
+
+    val products = viewModel.bestSellers
+    val isLoading = viewModel.isLoading
+    val error = viewModel.errorMessage
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -51,7 +66,7 @@ fun HomeScreen() {
             )
 
             Image(
-                painter = painterResource(id = R.drawable.comida_card),
+                painter = painterResource(id = R.drawable.image_product_goldenbag_dog),
                 contentDescription = null,
                 modifier = Modifier
                     .size(200.dp)
@@ -62,7 +77,7 @@ fun HomeScreen() {
             )
 
             Image(
-                painter = painterResource(id = R.drawable.comida_card),
+                painter = painterResource(id = R.drawable.image_product_goldenbag_dog),
                 contentDescription = null,
                 modifier = Modifier
                     .size(185.dp)
@@ -79,7 +94,13 @@ fun HomeScreen() {
 
         Spacer(modifier = Modifier.height(15.dp))
 
-        BestSellerSection()
+        if (isLoading) {
+            CircularProgressIndicator()
+        } else if (error != null) {
+            Text("Error al cargar productos")
+        } else {
+            BestSellerSection(products = products, onAddClick = { /* TODO */ })
+        }
     }
 }
 

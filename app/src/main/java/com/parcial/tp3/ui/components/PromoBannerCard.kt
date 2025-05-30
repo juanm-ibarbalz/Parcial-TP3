@@ -1,15 +1,15 @@
-package com.parcial.tp3.Components
+package com.parcial.tp3.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -39,15 +39,14 @@ fun PromoBannerCard(modifier: Modifier = Modifier) {
         ) {
             Text(
                 text = "Royal Canin\nAdult Pomeraniann",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.titleLarge,
                 color = Color.White,
                 lineHeight = 22.sp
             )
             Spacer(modifier = Modifier.height(6.dp))
             Text(
                 text = "Get an interesting promo\nhere, without conditions",
-                fontSize = 14.sp,
+                style = MaterialTheme.typography.bodySmall,
                 color = Color.White.copy(alpha = 0.9f),
                 lineHeight = 18.sp
             )

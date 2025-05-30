@@ -1,4 +1,4 @@
-package com.parcial.tp3.Components
+package com.parcial.tp3.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

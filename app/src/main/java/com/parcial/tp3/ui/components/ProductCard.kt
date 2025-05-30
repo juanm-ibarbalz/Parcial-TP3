@@ -1,38 +1,37 @@
-package com.parcial.tp3.Components
+package com.parcial.tp3.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import coil.compose.rememberAsyncImagePainter
+import com.parcial.tp3.ui.theme.LightSurfaceGrey
 
 @Composable
 fun ProductCard(
     name: String,
     price: String,
-    imageRes: Int,
+    imageUrl: String,
     onAddClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
             .width(160.dp)
             .clip(RoundedCornerShape(24.dp))
-            .background(Color(0xFFF0F0F0))
+            .background(LightSurfaceGrey)
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(id = imageRes),
+            painter = rememberAsyncImagePainter(imageUrl),
             contentDescription = name,
             modifier = Modifier
                 .height(140.dp)
@@ -42,7 +41,7 @@ fun ProductCard(
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        Text(text = name, fontSize = 14.sp, color = Color.Black)
+        Text(text = name, style = MaterialTheme.typography.bodySmall)
         Spacer(modifier = Modifier.height(4.dp))
 
         Row(
@@ -50,7 +49,7 @@ fun ProductCard(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "$$price", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+            Text(text = "$$price", style = MaterialTheme.typography.displaySmall)
             AddToCartButton(onClick = onAddClick)
         }
     }

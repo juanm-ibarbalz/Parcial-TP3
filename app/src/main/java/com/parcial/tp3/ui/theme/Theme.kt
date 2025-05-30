@@ -17,15 +17,18 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = PrimaryBlue,         // AzulPrincipal – Botones, íconos activos
-    secondary = LightGreyText,     // GrisSubtitulo – Subtítulos, texto secundario
-    tertiary = AlertRed            // Rojo – Íconos de borrar, alertas
+    primary = PrimaryBlue,          // AzulPrincipal – Botones, íconos activos
+    secondary = LightGreyText,      // GrisSubtitulo – Subtítulos, texto secundario
+    tertiary = AlertRed,            // Rojo – Íconos de borrar, alertas
+    background = BackgroundWhite,
+    surface = BackgroundWhite,
+    onBackground = PureBlack
 )
 
 @Composable
 fun ParcialTP3Theme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

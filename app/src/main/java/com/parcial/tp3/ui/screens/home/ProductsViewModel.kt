@@ -6,7 +6,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import androidx.compose.runtime.*
-import com.parcial.tp3.domain.model.Product
 import com.parcial.tp3.domain.model.ProductPreview
 import com.parcial.tp3.shared.IProductService
 

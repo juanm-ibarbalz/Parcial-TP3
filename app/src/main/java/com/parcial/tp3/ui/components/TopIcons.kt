@@ -1,4 +1,4 @@
-package com.parcial.tp3.Components
+package com.parcial.tp3.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -9,10 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.parcial.tp3.R
+import com.parcial.tp3.ui.theme.BackgroundWhite
+import com.parcial.tp3.ui.theme.PureBlack
 
 
 @Composable
@@ -25,7 +26,7 @@ fun TopIcons(
             Icon(
                 painter = painterResource(id = R.drawable.ic_search),
                 contentDescription = "Search",
-                tint = Color.Black
+                tint = PureBlack
             )
         }
 
@@ -33,7 +34,7 @@ fun TopIcons(
             Icon(
                 painter = painterResource(id = R.drawable.ic_notification),
                 contentDescription = "Notifications",
-                tint = Color.Black
+                tint = PureBlack
             )
         }
     }
@@ -45,7 +46,7 @@ fun RoundedIconButton(onClick: () -> Unit, content: @Composable () -> Unit) {
         modifier = Modifier
             .size(48.dp)
             .clip(RoundedCornerShape(16.dp))
-            .background(Color.White)
+            .background(BackgroundWhite)
             .clickable { onClick() },
         contentAlignment = Alignment.Center
     ) {
