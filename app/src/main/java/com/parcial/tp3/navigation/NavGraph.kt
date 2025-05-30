@@ -4,15 +4,16 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.parcial.tp3.ui.screens.home.HomeScreen
 
 @Composable
 fun AppNavGraph(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = Screen.Login.route) {
+    NavHost(navController = navController, startDestination = Screen.Home.route) {
         composable(route = Screen.Login.route) {
             // TODO: LoginScreen(navController)
         }
         composable(route = Screen.Home.route) {
-            // TODO: HomeScreen()
+            HomeScreen()
         }
         composable(route = Screen.ProductDetail.route) {
             // TODO: ProductDetailScreen()
