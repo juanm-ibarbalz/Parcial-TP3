@@ -1,6 +1,7 @@
 package com.parcial.tp3.ui.components
 
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -28,7 +29,8 @@ fun BestSellerSection(
             Text(
                 text = "View All",
                 color = PrimaryBlue,
-                style = MaterialTheme.typography.labelSmall
+                style = MaterialTheme.typography.labelSmall,
+                modifier = Modifier.clickable { /* TODO: Handle click */ }
             )
         }
 

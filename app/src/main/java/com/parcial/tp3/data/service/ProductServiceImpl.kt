@@ -17,4 +17,9 @@ class ProductServiceImpl @Inject constructor(
     override suspend fun getById(id: Int): Product {
         return api.getProductById(id).toDomain()
     }
+
+    override suspend fun getByCategory(category: String, limit: Int, skip: Int): List<Product> {
+        return api.getProductsByCategory(category, limit, skip).products.map { it.toDomain() }
+    }
+
 }

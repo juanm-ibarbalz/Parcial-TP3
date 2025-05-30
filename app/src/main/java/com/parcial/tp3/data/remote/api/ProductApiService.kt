@@ -11,11 +11,18 @@ interface ProductApiService {
     @GET("products")
     suspend fun getProducts(
         @Query("limit") limit: Int,
-        @Query("skip") skip: Int
+        @Query("skip") skip: Int    // Está la posibilidad de paginación, solo no esta implementada
     ): ProductListResponseDto
 
     @GET("products/{id}")
     suspend fun getProductById(
         @Path("id") id: Int
     ): ProductDto
+
+    @GET("products/category/{category}")
+    suspend fun getProductsByCategory(
+        @Path("category") category: String,
+        @Query("limit") limit: Int,
+        @Query("skip") skip: Int
+    ): ProductListResponseDto
 }

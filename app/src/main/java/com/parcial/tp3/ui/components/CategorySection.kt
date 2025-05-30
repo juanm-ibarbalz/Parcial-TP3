@@ -1,6 +1,7 @@
 package com.parcial.tp3.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -20,7 +21,7 @@ import com.parcial.tp3.ui.theme.PrimaryBlue
 
 
 @Composable
-fun CategoryChip(text: String, selected: Boolean) {
+fun CategoryChip(text: String, selected: Boolean, onClick: () -> Unit) {
     val backgroundColor = if (selected) PrimaryBlue else LightSurfaceGrey
     val textColor = if (selected) Color.White else MediumGrey
 
@@ -28,6 +29,7 @@ fun CategoryChip(text: String, selected: Boolean) {
         modifier = Modifier
             .clip(RoundedCornerShape(16.dp))
             .background(backgroundColor)
+            .clickable { onClick() }
             .padding(horizontal = 20.dp, vertical = 12.dp),
         contentAlignment = Alignment.Center
     ) {
@@ -36,7 +38,11 @@ fun CategoryChip(text: String, selected: Boolean) {
 }
 
 @Composable
-fun CategorySection() {
+fun CategorySection(
+    categories: List<String>,
+    selectedCategory: String?,
+    onCategorySelected: (String?) -> Unit
+) {
     Column(modifier = Modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -50,7 +56,8 @@ fun CategorySection() {
             Text(
                 text = "View All",
                 color = PrimaryBlue,
-                style = MaterialTheme.typography.labelSmall
+                style = MaterialTheme.typography.labelSmall,
+                modifier = Modifier.clickable { /* TODO: Handle click */ }
             )
         }
 
@@ -76,9 +83,13 @@ fun CategorySection() {
                 )
             }
 
-            CategoryChip(text = "Food", selected = true)
-            CategoryChip(text = "Toys", selected = false)
-            CategoryChip(text = "Accessories", selected = false)
+            categories.forEach { category ->
+                CategoryChip(
+                    text = category,
+                    selected = selectedCategory == category,
+                    onClick = { onCategorySelected(category) }
+                )
+            }
         }
     }
 }

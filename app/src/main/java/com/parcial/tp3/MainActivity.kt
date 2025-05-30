@@ -14,6 +14,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        // Forzamos fondo blanco completo para evitar el gris (#FAFAFA) por defecto del sistema
+        window.setBackgroundDrawableResource(android.R.color.white)
+
         setContent {
             ParcialTP3Theme {
                 val navController = rememberNavController()

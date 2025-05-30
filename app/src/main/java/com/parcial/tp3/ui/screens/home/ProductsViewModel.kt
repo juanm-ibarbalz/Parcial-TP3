@@ -1,5 +1,6 @@
 package com.parcial.tp3.ui.screens.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,12 +24,18 @@ class ProductsViewModel @Inject constructor(
     var errorMessage by mutableStateOf<String?>(null)
         private set
 
-    fun loadBestSellers(limit: Int = 2, skip: Int = 0) {
+    fun loadBestSellers(limit: Int = 2, skip: Int = 0, category: String? = null) {
         isLoading = true
         errorMessage = null
         viewModelScope.launch {
             try {
-                val previews = productService.getAll(limit, skip).map {
+                val products = if (category != null) {
+                    productService.getByCategory(category, limit, skip)
+                } else {
+                    productService.getAll(limit, skip)
+                }
+
+                val previews = products.map {
                     ProductPreview(
                         id = it.id,
                         name = it.title,
@@ -44,5 +51,4 @@ class ProductsViewModel @Inject constructor(
             }
         }
     }
-
 }

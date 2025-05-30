@@ -1,5 +1,6 @@
 package com.parcial.tp3.ui.screens.home
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -9,6 +10,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.layout.ContentScale
 import com.parcial.tp3.R
@@ -26,8 +29,12 @@ fun HomeScreen(
     viewModel: ProductsViewModel = hiltViewModel()
 ) {
 
-    LaunchedEffect(Unit) {
-        viewModel.loadBestSellers(limit = 2)
+    val categories = listOf("Beauty", "Tops", "Smartphones")       // Se podria asociar al endpoint de categorias para obtener todas
+    var selectedCategory = remember { mutableStateOf<String?>(null) }   // Pero por ahora solo vamos a usar estas tres por una cuestion de tiempo
+
+    LaunchedEffect(selectedCategory.value) {
+        Log.d("Filtro", "Categoría seleccionada: $selectedCategory")
+        viewModel.loadBestSellers(limit = 2, category = selectedCategory.value?.lowercase())
     }
 
     val products = viewModel.bestSellers
@@ -89,7 +96,13 @@ fun HomeScreen(
         }
 
         CategorySection(
-
+            categories = categories,
+            selectedCategory = selectedCategory.value,
+            onCategorySelected = { category ->
+                if (selectedCategory.value != category) {
+                    selectedCategory.value = category
+                }
+            }
         )
 
         Spacer(modifier = Modifier.height(15.dp))
