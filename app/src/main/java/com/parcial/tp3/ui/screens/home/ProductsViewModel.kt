@@ -1,6 +1,5 @@
 package com.parcial.tp3.ui.screens.home
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -9,6 +8,7 @@ import javax.inject.Inject
 import androidx.compose.runtime.*
 import com.parcial.tp3.domain.model.ProductPreview
 import com.parcial.tp3.shared.IProductService
+import kotlinx.coroutines.Dispatchers
 
 @HiltViewModel
 class ProductsViewModel @Inject constructor(
@@ -27,7 +27,7 @@ class ProductsViewModel @Inject constructor(
     fun loadBestSellers(limit: Int = 2, skip: Int = 0, category: String? = null) {
         isLoading = true
         errorMessage = null
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val products = if (category != null) {
                     productService.getByCategory(category, limit, skip)
@@ -43,12 +43,20 @@ class ProductsViewModel @Inject constructor(
                         image = it.thumbnail
                     )
                 }
-                bestSellers = previews
+
+                // UI state updates deben ir en el hilo principal
+                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                    bestSellers = previews
+                    isLoading = false
+                }
+
             } catch (e: Exception) {
-                errorMessage = "Error al cargar los best sellers"
-            } finally {
-                isLoading = false
+                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                    errorMessage = "Error al cargar los best sellers"
+                    isLoading = false
+                }
             }
         }
     }
+
 }
