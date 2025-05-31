@@ -5,6 +5,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.parcial.tp3.ui.screens.home.HomeScreen
+import com.parcial.tp3.ui.screens.home.NotificationScreen
+
+
+
 
 @Composable
 fun AppNavGraph(navController: NavHostController) {
@@ -13,7 +17,7 @@ fun AppNavGraph(navController: NavHostController) {
             // TODO: LoginScreen(navController)
         }
         composable(route = Screen.Home.route) {
-            HomeScreen()
+            HomeScreen(navController = navController)
         }
         composable(route = Screen.ProductDetail.route) {
             // TODO: ProductDetailScreen()
@@ -24,5 +28,9 @@ fun AppNavGraph(navController: NavHostController) {
         composable(route = Screen.Settings.route) {
             // TODO: SettingsScreen()
         }
+        composable(route = Screen.Notifications.route) {
+            NotificationScreen(navController = navController)
+        }
+
     }
 }

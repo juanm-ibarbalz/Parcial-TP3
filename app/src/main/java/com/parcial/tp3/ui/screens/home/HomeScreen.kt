@@ -17,6 +17,7 @@ import androidx.compose.ui.layout.ContentScale
 import com.parcial.tp3.R
 import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.parcial.tp3.ui.components.BestSellerSection
 import com.parcial.tp3.ui.components.PromoBannerCard
 import com.parcial.tp3.ui.components.TopIcons
@@ -26,11 +27,12 @@ import com.parcial.tp3.ui.components.LocationDisplay
 
 @Composable
 fun HomeScreen(
+    navController: NavHostController,
     viewModel: ProductsViewModel = hiltViewModel()
 ) {
 
-    val categories = listOf("Beauty", "Tops", "Smartphones")       // Se podria asociar al endpoint de categorias para obtener todas
-    var selectedCategory = remember { mutableStateOf<String?>(null) }   // Pero por ahora solo vamos a usar estas tres por una cuestion de tiempo
+    val categories = listOf("Beauty", "Tops", "Smartphones")
+    var selectedCategory = remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(selectedCategory.value) {
         Log.d("Filtro", "Categoría seleccionada: $selectedCategory")
@@ -55,8 +57,8 @@ fun HomeScreen(
         ) {
             LocationDisplay()
             TopIcons(
-                onSearchClick = { /* TODO */ },
-                onNotificationClick = { /* TODO */ }
+                navController = navController,
+                onSearchClick = { /* TODO */ }
             )
         }
 

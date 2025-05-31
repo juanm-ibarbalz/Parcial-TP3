@@ -9,8 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.parcial.tp3.R
 import com.parcial.tp3.ui.theme.BackgroundWhite
 import com.parcial.tp3.ui.theme.PureBlack
@@ -18,8 +20,8 @@ import com.parcial.tp3.ui.theme.PureBlack
 
 @Composable
 fun TopIcons(
-    onSearchClick: () -> Unit,
-    onNotificationClick: () -> Unit
+    navController: NavController,
+    onSearchClick: () -> Unit
 ) {
     Row(horizontalArrangement = Arrangement.spacedBy(22.dp)) {
         RoundedIconButton(onClick = onSearchClick) {
@@ -30,7 +32,9 @@ fun TopIcons(
             )
         }
 
-        RoundedIconButton(onClick = onNotificationClick) {
+        RoundedIconButton(onClick = {
+            navController.navigate("notifications")
+        }) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_notification),
                 contentDescription = "Notifications",
@@ -45,6 +49,11 @@ fun RoundedIconButton(onClick: () -> Unit, content: @Composable () -> Unit) {
     Box(
         modifier = Modifier
             .size(48.dp)
+            .shadow(
+                elevation = 6.dp,
+                shape = RoundedCornerShape(16.dp),
+                clip = false
+            )
             .clip(RoundedCornerShape(16.dp))
             .background(BackgroundWhite)
             .clickable { onClick() },
