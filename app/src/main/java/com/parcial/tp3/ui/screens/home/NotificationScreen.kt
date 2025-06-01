@@ -5,11 +5,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.parcial.tp3.ui.components.NotificationHeader
-import com.parcial.tp3.ui.components.NotificationToggle
-import com.parcial.tp3.ui.components.NotificationList
 import androidx.navigation.NavHostController
-
+import com.parcial.tp3.ui.components.NotificationHeader
+import com.parcial.tp3.ui.components.NotificationList
+import com.parcial.tp3.ui.components.NotificationToggle
 
 @Composable
 fun NotificationScreen(navController: NavHostController) {
@@ -20,12 +19,21 @@ fun NotificationScreen(navController: NavHostController) {
             .fillMaxSize()
             .padding(horizontal = 16.dp, vertical = 24.dp)
     ) {
-        NotificationHeader(navController)
+        NotificationHeader(navController = navController, title = "Notification")
+
         Spacer(modifier = Modifier.height(16.dp))
+
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-            NotificationToggle(selectedTab = selectedTab, onTabSelected = { selectedTab = it })
+            NotificationToggle(
+                selectedTab = selectedTab,
+                onTabSelected = { selectedTab = it }
+            )
         }
+
         Spacer(modifier = Modifier.height(24.dp))
-        NotificationList(selectedTab = selectedTab)
+
+        Box(modifier = Modifier.fillMaxSize()) {
+            NotificationList(selectedTab = selectedTab)
+        }
     }
 }

@@ -20,11 +20,11 @@ fun ProductCard(
     name: String,
     price: String,
     imageUrl: String,
-    onAddClick: () -> Unit
+    onAddClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier
-            .width(160.dp)
+        modifier = modifier
             .clip(RoundedCornerShape(24.dp))
             .background(LightSurfaceGrey)
             .padding(16.dp),
@@ -54,4 +54,3 @@ fun ProductCard(
         }
     }
 }
-

@@ -20,9 +20,12 @@ import androidx.compose.foundation.layout.*
 
 
 @Composable
-fun NotificationHeader(navController: NavHostController) {
+fun NotificationHeader(
+    navController: NavHostController,
+    title: String = "Notification"
+) {
     Column {
-        Spacer(modifier = Modifier.height(48.dp)) // igual que TopIcons
+        Spacer(modifier = Modifier.height(48.dp))
 
         Box(
             modifier = Modifier
@@ -44,7 +47,7 @@ fun NotificationHeader(navController: NavHostController) {
             }
 
             Text(
-                text = "Notification",
+                text = title,
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.align(Alignment.Center)
             )

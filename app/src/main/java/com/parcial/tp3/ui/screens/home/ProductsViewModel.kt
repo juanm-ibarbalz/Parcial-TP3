@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import com.parcial.tp3.domain.model.ProductPreview
 import com.parcial.tp3.shared.IProductService
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @HiltViewModel
 class ProductsViewModel @Inject constructor(
@@ -18,15 +19,28 @@ class ProductsViewModel @Inject constructor(
     var bestSellers by mutableStateOf<List<ProductPreview>>(emptyList())
         private set
 
+    var allProducts by mutableStateOf<List<ProductPreview>>(emptyList())
+        private set
+
+    var searchQuery by mutableStateOf("")
+        private set
+
     var isLoading by mutableStateOf(false)
         private set
 
     var errorMessage by mutableStateOf<String?>(null)
         private set
 
+    fun updateSearchQuery(query: String) {
+        searchQuery = query
+    }
+
     fun loadBestSellers(limit: Int = 2, skip: Int = 0, category: String? = null) {
+        if (allProducts.isNotEmpty()) return
+
         isLoading = true
         errorMessage = null
+
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val products = if (category != null) {
@@ -44,19 +58,18 @@ class ProductsViewModel @Inject constructor(
                     )
                 }
 
-                // UI state updates deben ir en el hilo principal
-                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                withContext(Dispatchers.Main) {
                     bestSellers = previews
+                    allProducts = previews
                     isLoading = false
                 }
 
             } catch (e: Exception) {
-                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                withContext(Dispatchers.Main) {
                     errorMessage = "Error al cargar los best sellers"
                     isLoading = false
                 }
             }
         }
     }
-
 }

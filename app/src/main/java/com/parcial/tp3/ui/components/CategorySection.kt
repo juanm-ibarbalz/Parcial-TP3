@@ -19,7 +19,6 @@ import com.parcial.tp3.ui.theme.LightSurfaceGrey
 import com.parcial.tp3.ui.theme.MediumGrey
 import com.parcial.tp3.ui.theme.PrimaryBlue
 
-
 @Composable
 fun CategoryChip(text: String, selected: Boolean, onClick: () -> Unit) {
     val backgroundColor = if (selected) PrimaryBlue else LightSurfaceGrey
@@ -41,7 +40,8 @@ fun CategoryChip(text: String, selected: Boolean, onClick: () -> Unit) {
 fun CategorySection(
     categories: List<String>,
     selectedCategory: String?,
-    onCategorySelected: (String?) -> Unit
+    onCategorySelected: (String?) -> Unit,
+    showViewAll: Boolean = true
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         Row(
@@ -53,42 +53,48 @@ fun CategorySection(
                 text = "Category",
                 style = MaterialTheme.typography.titleLarge
             )
-            Text(
-                text = "View All",
-                color = PrimaryBlue,
-                style = MaterialTheme.typography.labelSmall,
-                modifier = Modifier.clickable { /* TODO: Handle click */ }
-            )
+            if (showViewAll) {
+                Text(
+                    text = "View All",
+                    color = PrimaryBlue,
+                    style = MaterialTheme.typography.labelSmall,
+                    modifier = Modifier.clickable { /* TODO */ }
+                )
+            }
         }
 
         Spacer(modifier = Modifier.height(12.dp))
 
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 4.dp),
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+            horizontalArrangement = Arrangement.Center
         ) {
-            Box(
-                modifier = Modifier
-                    .size(44.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(LightSurfaceGrey),
-                contentAlignment = Alignment.Center
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_swap),
-                    contentDescription = "Filter"
-                )
-            }
+                Box(
+                    modifier = Modifier
+                        .size(44.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(LightSurfaceGrey),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_swap),
+                        contentDescription = "Filter"
+                    )
+                }
 
-            categories.forEach { category ->
-                CategoryChip(
-                    text = category,
-                    selected = selectedCategory == category,
-                    onClick = { onCategorySelected(category) }
-                )
+                categories.forEach { category ->
+                    CategoryChip(
+                        text = category,
+                        selected = selectedCategory == category,
+                        onClick = { onCategorySelected(category) }
+                    )
+                }
             }
         }
     }

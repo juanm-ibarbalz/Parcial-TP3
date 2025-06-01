@@ -14,17 +14,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.parcial.tp3.R
+import com.parcial.tp3.navigation.Screen
 import com.parcial.tp3.ui.theme.BackgroundWhite
 import com.parcial.tp3.ui.theme.PureBlack
 
-
 @Composable
 fun TopIcons(
-    navController: NavController,
-    onSearchClick: () -> Unit
+    navController: NavController
 ) {
     Row(horizontalArrangement = Arrangement.spacedBy(22.dp)) {
-        RoundedIconButton(onClick = onSearchClick) {
+
+        RoundedIconButton(onClick = {
+            navController.navigate(Screen.Search.route)
+        }) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_search),
                 contentDescription = "Search",
@@ -33,7 +35,7 @@ fun TopIcons(
         }
 
         RoundedIconButton(onClick = {
-            navController.navigate("notifications")
+            navController.navigate(Screen.Notifications.route)
         }) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_notification),

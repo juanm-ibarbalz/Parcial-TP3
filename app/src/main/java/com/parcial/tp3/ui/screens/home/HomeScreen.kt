@@ -56,10 +56,7 @@ fun HomeScreen(
             verticalAlignment = Alignment.Top
         ) {
             LocationDisplay()
-            TopIcons(
-                navController = navController,
-                onSearchClick = { /* TODO */ }
-            )
+            TopIcons(navController = navController)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -100,11 +97,8 @@ fun HomeScreen(
         CategorySection(
             categories = categories,
             selectedCategory = selectedCategory.value,
-            onCategorySelected = { category ->
-                if (selectedCategory.value != category) {
-                    selectedCategory.value = category
-                }
-            }
+            onCategorySelected = { category -> selectedCategory.value = category },
+            showViewAll = true
         )
 
         Spacer(modifier = Modifier.height(15.dp))
@@ -114,8 +108,11 @@ fun HomeScreen(
         } else if (error != null) {
             Text("Error al cargar productos")
         } else {
-            BestSellerSection(products = products, onAddClick = { /* TODO */ })
-        }
+            BestSellerSection(
+                products = products,
+                onAddClick = { /* TODO */ },
+                navController = navController
+            )        }
     }
 }
 
