@@ -19,7 +19,8 @@ import com.parcial.tp3.ui.theme.PureBlack
 @Composable
 fun NotificationHeader(
     navController: NavHostController,
-    title: String = "Notification"
+    title: String = "Notification",
+    showFavoriteIcon: Boolean = false
 ) {
     Column {
         Spacer(modifier = Modifier.windowInsetsTopHeight(WindowInsets.statusBars))
@@ -48,6 +49,21 @@ fun NotificationHeader(
                 color = PureBlack,
                 modifier = Modifier.align(Alignment.Center)
             )
+
+            if (showFavoriteIcon) {
+                Box(
+                    modifier = Modifier
+                        .size(48.dp)
+                        .align(Alignment.CenterEnd)
+                ) {
+                    RoundedIconButton(onClick = { /* TODO: marcar como favorito */ }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_heart),
+                            contentDescription = "Favorite"
+                        )
+                    }
+                }
+            }
         }
     }
 }

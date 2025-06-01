@@ -47,8 +47,11 @@ fun ProductDetailScreen(
             .fillMaxSize()
             .padding(horizontal = 16.dp, vertical = 24.dp)
     ) {
-        NotificationHeader(navController = navController, title = "Product Detail")
-
+        NotificationHeader(
+            navController = navController,
+            title = "Product Detail",
+            showFavoriteIcon = true
+        )
         Spacer(modifier = Modifier.height(16.dp))
 
         when {
