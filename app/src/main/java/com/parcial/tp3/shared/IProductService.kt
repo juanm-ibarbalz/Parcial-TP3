@@ -6,5 +6,5 @@ interface IProductService {
     suspend fun getAll(limit: Int, skip: Int): List<Product>
     suspend fun getById(id: Int): Product
     suspend fun getByCategory(category: String, limit: Int, skip: Int): List<Product>
-
+    suspend fun search(query: String): List<Product>
 }

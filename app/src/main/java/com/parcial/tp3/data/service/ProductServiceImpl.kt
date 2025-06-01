@@ -22,4 +22,8 @@ class ProductServiceImpl @Inject constructor(
         return api.getProductsByCategory(category, limit, skip).products.map { it.toDomain() }
     }
 
+    override suspend fun search(query: String): List<Product> {
+        return api.searchProducts(query).products.map { it.toDomain() }
+    }
+
 }

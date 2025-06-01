@@ -25,4 +25,10 @@ interface ProductApiService {
         @Query("limit") limit: Int,
         @Query("skip") skip: Int
     ): ProductListResponseDto
+
+    @GET("products/search")
+    suspend fun searchProducts(
+        @Query("q") query: String
+    ): ProductListResponseDto
+
 }

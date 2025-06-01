@@ -92,9 +92,7 @@ fun ProductDetailScreen(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod sapien sit amet dui convallis, nec bibendum sapien suscipit." +
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod sapien sit amet dui convallis, nec bibendum sapien suscipit." +
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod sapien sit amet dui convallis, nec bibendum sapien suscipit.",
+                    text = product.description,
                     style = MaterialTheme.typography.bodySmall,
                     color = MediumGrey
                 )

@@ -36,10 +36,10 @@ fun HomeScreen(
 
     LaunchedEffect(selectedCategory.value) {
         Log.d("Filtro", "Categoría seleccionada: $selectedCategory")
-        viewModel.loadBestSellers(limit = 2, category = selectedCategory.value?.lowercase())
+        viewModel.loadHomePreviewProducts(limit = 2, category = selectedCategory.value?.lowercase())
     }
 
-    val products = viewModel.bestSellers
+    val products = viewModel.homePreviewProducts
     val isLoading = viewModel.isLoading
     val error = viewModel.errorMessage
 

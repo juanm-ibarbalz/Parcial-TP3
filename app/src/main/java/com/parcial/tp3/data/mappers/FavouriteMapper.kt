@@ -8,7 +8,8 @@ fun ProductPreview.toEntity(): FavouriteEntity {
         id = id,
         name = name,
         price = price,
-        image = image
+        image = image,
+        category = category
     )
 }
 
@@ -17,6 +18,7 @@ fun FavouriteEntity.toDomain(): ProductPreview {
         id = id,
         name = name,
         price = price,
-        image = image
+        image = image,
+        category = category
     )
 }

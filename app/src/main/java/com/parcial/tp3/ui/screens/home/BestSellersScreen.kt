@@ -20,10 +20,10 @@ fun BestSellersScreen(
     navController: NavHostController,
     viewModel: ProductsViewModel = hiltViewModel()
 ) {
-    val products = viewModel.bestSellers
+    val products = viewModel.allProducts
 
     LaunchedEffect(Unit) {
-        viewModel.loadBestSellers(limit = 20)
+        viewModel.loadAllProducts(limit = 20)
     }
 
     Column(

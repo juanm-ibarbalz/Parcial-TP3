@@ -92,7 +92,11 @@ fun CategorySection(
                     CategoryChip(
                         text = category,
                         selected = selectedCategory == category,
-                        onClick = { onCategorySelected(category) }
+                        onClick = {
+                            onCategorySelected(
+                                if (selectedCategory == category) null else category
+                            )
+                        }
                     )
                 }
             }

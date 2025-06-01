@@ -23,20 +23,23 @@ fun SearchScreen(
     navController: NavHostController,
     viewModel: ProductsViewModel = hiltViewModel()
 ) {
-    val searchText = viewModel.searchQuery
-    val allProducts = viewModel.allProducts
-    val categories = listOf("Food", "Toys", "Accessories")
+    var searchText by remember { mutableStateOf("") }
+    val searchResults = viewModel.searchResults
+    val categories = listOf("Beauty", "Tops", "Smartphones")
     var selectedCategory by remember { mutableStateOf<String?>(null) }
 
-    val filteredProducts by remember(searchText, allProducts) {
-        derivedStateOf {
-            if (searchText.isBlank()) emptyList()
-            else allProducts.filter { it.name.contains(searchText, ignoreCase = true) }
+    val filteredResults = remember(searchResults, selectedCategory) {
+        searchResults.filter { product ->
+            selectedCategory == null || product.category.equals(selectedCategory, ignoreCase = true)
         }
     }
 
-    LaunchedEffect(Unit) {
-        viewModel.loadBestSellers(limit = 20)
+    LaunchedEffect(searchText) {
+        if (searchText.length >= 2) {
+            viewModel.searchProducts(searchText)
+        } else {
+            viewModel.clearSearchResults()
+        }
     }
 
     Column(
@@ -50,7 +53,7 @@ fun SearchScreen(
 
         OutlinedTextField(
             value = searchText,
-            onValueChange = { viewModel.updateSearchQuery(it) },
+            onValueChange = { searchText = it },
             placeholder = { Text("Search your Product", style = MaterialTheme.typography.labelMedium,
                 color = MediumGrey) },
             modifier = Modifier
@@ -94,7 +97,7 @@ fun SearchScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             modifier = Modifier.fillMaxHeight()
         ) {
-            items(filteredProducts) { product ->
+            items(filteredResults) { product ->
                 ProductCard(
                     productId = product.id,
                     name = product.name,
