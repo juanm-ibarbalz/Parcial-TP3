@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.parcial.tp3.ui.screens.cart.CartScreen
 import com.parcial.tp3.ui.screens.home.BestSellersScreen
 import com.parcial.tp3.ui.screens.home.HomeScreen
 import com.parcial.tp3.ui.screens.home.NotificationScreen
@@ -43,6 +44,9 @@ fun AppNavGraph(navController: NavHostController) {
         }
         composable(route = Screen.Search.route) {
             SearchScreen(navController = navController)
+        }
+        composable(route = Screen.Cart.route) {
+            CartScreen(navController = navController)
         }
     }
 }

@@ -90,6 +90,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
 
+    implementation ("androidx.compose.material:material:1.4.3")
 
+    implementation("androidx.compose.material3:material3:1.2.0")
 
 }
