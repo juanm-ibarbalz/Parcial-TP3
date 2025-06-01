@@ -12,3 +12,4 @@ val ProfileGrey = Color(0xFFD9D9D9)         // GrisPFP – Fondo de imagen de pe
 val SettingsGrey = Color(0xFFE7E7E7)        // GrisSettings – Fondo de ajustes/config
 val AlertRed = Color(0xFFFF4D4F)            // Rojo – Íconos de borrar, alertas
 val BackgroundWhite = Color(0xFFFFFFFF)     // Blanco - Fondo
+

@@ -18,6 +18,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.parcial.tp3.R
+import com.parcial.tp3.ui.theme.MediumGrey
+import com.parcial.tp3.ui.theme.PureBlack
 
 data class NotificationItem(
     val title: String,
@@ -88,12 +90,13 @@ fun NotificationCard(item: NotificationItem) {
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = item.title,
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.labelMedium,
+                color = PureBlack
             )
             Text(
                 text = item.subtitle,
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                color = MediumGrey
             )
         }
 

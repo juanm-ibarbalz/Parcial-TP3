@@ -1,6 +1,5 @@
 package com.parcial.tp3.ui.components
 
-
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
@@ -12,7 +11,6 @@ import androidx.navigation.NavHostController
 import com.parcial.tp3.domain.model.ProductPreview
 import com.parcial.tp3.navigation.Screen
 import com.parcial.tp3.ui.theme.PrimaryBlue
-
 
 @Composable
 fun BestSellerSection(
@@ -47,10 +45,14 @@ fun BestSellerSection(
         ) {
             products.forEach { product ->
                 ProductCard(
+                    productId = product.id,
                     name = product.name,
                     price = String.format("%.2f", product.price),
                     imageUrl = product.image,
                     onAddClick = { onAddClick(product) },
+                    onCardClick = {
+                        navController.navigate(Screen.ProductDetail.createRoute(product.id))
+                    },
                     modifier = Modifier.width(160.dp)
                 )
             }

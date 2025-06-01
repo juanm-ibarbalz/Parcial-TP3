@@ -16,6 +16,7 @@ import com.parcial.tp3.R
 import com.parcial.tp3.ui.components.CategorySection
 import com.parcial.tp3.ui.components.NotificationHeader
 import com.parcial.tp3.ui.components.ProductCard
+import com.parcial.tp3.ui.theme.MediumGrey
 
 @Composable
 fun SearchScreen(
@@ -50,7 +51,8 @@ fun SearchScreen(
         OutlinedTextField(
             value = searchText,
             onValueChange = { viewModel.updateSearchQuery(it) },
-            placeholder = { Text("Search your Product") },
+            placeholder = { Text("Search your Product", style = MaterialTheme.typography.labelMedium,
+                color = MediumGrey) },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp),
@@ -94,10 +96,14 @@ fun SearchScreen(
         ) {
             items(filteredProducts) { product ->
                 ProductCard(
+                    productId = product.id,
                     name = product.name,
-                    price = String.format("%.2f", product.price),
+                    price = String.format(java.util.Locale.US, "%.2f", product.price),
                     imageUrl = product.image,
                     onAddClick = { /* TODO */ },
+                    onCardClick = {
+                        navController.navigate(com.parcial.tp3.navigation.Screen.ProductDetail.createRoute(product.id))
+                    },
                     modifier = Modifier.fillMaxWidth()
                 )
             }

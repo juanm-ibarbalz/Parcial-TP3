@@ -1,18 +1,16 @@
 package com.parcial.tp3.ui.screens.home
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material3.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import com.parcial.tp3.ui.components.ProductCard
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.parcial.tp3.ui.components.NotificationHeader
+import com.parcial.tp3.ui.components.ProductCard
+import com.parcial.tp3.navigation.Screen
 
 @Composable
 fun BestSellersScreen(
@@ -20,42 +18,29 @@ fun BestSellersScreen(
     viewModel: ProductsViewModel = hiltViewModel()
 ) {
     val products = viewModel.bestSellers
-    val isLoading = viewModel.isLoading
-    val error = viewModel.errorMessage
 
     LaunchedEffect(Unit) {
         viewModel.loadBestSellers(limit = 20)
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        NotificationHeader(navController = navController, title = "Best Seller")
+    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+        NotificationHeader(navController = navController, title = "Best Sellers")
 
-        if (isLoading) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator()
-            }
-        } else if (error != null) {
-            Text(text = error)
-        } else {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                modifier = Modifier.fillMaxSize()
-            ) {
-                items(products) { product ->
-                    ProductCard(
-                        name = product.name,
-                        price = String.format("%.2f", product.price),
-                        imageUrl = product.image,
-                        onAddClick = { /* TODO */ },
-                        modifier = Modifier.width(160.dp)
-                    )
-                }
+        Spacer(modifier = Modifier.height(16.dp))
+
+        LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            items(products) { product ->
+                ProductCard(
+                    productId = product.id,
+                    name = product.name,
+                    price = String.format(java.util.Locale.US, "%.2f", product.price),
+                    imageUrl = product.image,
+                    onAddClick = { /* TODO */ },
+                    onCardClick = {
+                        navController.navigate(Screen.ProductDetail.createRoute(product.id))
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
         }
     }

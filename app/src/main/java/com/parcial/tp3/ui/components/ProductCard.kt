@@ -2,6 +2,7 @@ package com.parcial.tp3.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -17,16 +18,19 @@ import com.parcial.tp3.ui.theme.LightSurfaceGrey
 
 @Composable
 fun ProductCard(
+    productId: Int,
     name: String,
     price: String,
     imageUrl: String,
     onAddClick: () -> Unit,
+    onCardClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(24.dp))
             .background(LightSurfaceGrey)
+            .clickable { onCardClick() }
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

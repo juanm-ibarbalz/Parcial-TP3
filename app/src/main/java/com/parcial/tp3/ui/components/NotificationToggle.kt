@@ -12,6 +12,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.parcial.tp3.ui.theme.BackgroundWhite
+import com.parcial.tp3.ui.theme.MediumGrey
 
 
 @Composable
@@ -53,8 +55,8 @@ fun ToggleTab(
     ) {
         Text(
             text = label,
-            fontSize = 14.sp,
-            color = if (isSelected) Color.White else Color.Gray
+            style = MaterialTheme.typography.labelMedium,
+            color = if (isSelected) BackgroundWhite else MediumGrey
         )
     }
 }

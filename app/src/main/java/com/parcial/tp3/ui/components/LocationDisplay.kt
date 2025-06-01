@@ -26,8 +26,8 @@ fun LocationDisplay() {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 text = "Location",
-                color = Color.Gray,
-                style = MaterialTheme.typography.titleSmall
+                style = MaterialTheme.typography.titleSmall,
+                color = MediumGrey,
             )
             Icon(
                 painter = painterResource(id = R.drawable.ic_arrow_down),
@@ -64,8 +64,8 @@ fun LocationDisplay() {
 
                 Text(
                     text = "Location",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.titleLarge,
+                    color = PureBlack,
                     modifier = Modifier.align(Alignment.Start)
                 )
 
@@ -74,7 +74,8 @@ fun LocationDisplay() {
                 OutlinedTextField(
                     value = "",
                     onValueChange = {},
-                    placeholder = { Text("Search your Location") },
+                    placeholder = { Text("Search your Location", style = MaterialTheme.typography.labelMedium,
+                        color = MediumGrey) },
                     leadingIcon = {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_search),
@@ -93,7 +94,7 @@ fun LocationDisplay() {
                     modifier = Modifier
                         .fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Start // esto lo lleva a la izquierda
+                    horizontalArrangement = Arrangement.Start
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_location),
@@ -102,11 +103,12 @@ fun LocationDisplay() {
                     )
                     Spacer(modifier = Modifier.width(12.dp))
                     Column {
-                        Text("Track your Location", fontWeight = FontWeight.Medium)
+                        Text("Track your Location", style = MaterialTheme.typography.labelMedium,
+                            color = PureBlack)
                         Text(
                             "automatically selects your\ncurrent location",
-                            color = Color.Gray,
-                            fontSize = 12.sp
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MediumGrey
                         )
                     }
                 }

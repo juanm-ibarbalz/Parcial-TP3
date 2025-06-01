@@ -14,6 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.parcial.tp3.R
+import com.parcial.tp3.ui.theme.BackgroundWhite
 
 @Composable
 fun PromoBannerCard(modifier: Modifier = Modifier) {
@@ -35,13 +36,13 @@ fun PromoBannerCard(modifier: Modifier = Modifier) {
         Column(
             modifier = Modifier
                 .align(Alignment.CenterEnd)
-                .padding(end = 16.dp),
-            horizontalAlignment = Alignment.End
+                .padding(end = 60.dp),
+            horizontalAlignment = Alignment.Start
         ) {
             Text(
                 text = "Royal Canin\nAdult Pomeraniann",
-                style = MaterialTheme.typography.titleLarge,
-                color = Color.White,
+                style = MaterialTheme.typography.labelMedium,
+                color = BackgroundWhite,
                 lineHeight = 22.sp
             )
             Spacer(modifier = Modifier.height(6.dp))
