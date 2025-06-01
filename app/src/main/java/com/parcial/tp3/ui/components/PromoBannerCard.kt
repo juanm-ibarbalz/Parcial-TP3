@@ -1,6 +1,6 @@
 package com.parcial.tp3.ui.components
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -10,8 +10,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.parcial.tp3.R
 
 @Composable
 fun PromoBannerCard(modifier: Modifier = Modifier) {
@@ -20,16 +22,15 @@ fun PromoBannerCard(modifier: Modifier = Modifier) {
             .fillMaxWidth()
             .height(160.dp)
             .clip(RoundedCornerShape(20.dp))
-            .background(Color(0xFF7A5FFF))
     ) {
 
-        Box(
+        Image(
+            painter = painterResource(id = R.drawable.imagen_banner),
+            contentDescription = "Promo Background",
             modifier = Modifier
-                .fillMaxHeight()
-                .padding(start = 16.dp, top = 16.dp),
-        ) {
-
-        }
+                .matchParentSize()
+                .clip(RoundedCornerShape(20.dp))
+        )
 
         Column(
             modifier = Modifier
