@@ -29,6 +29,7 @@ import com.parcial.tp3.ui.theme.MediumGrey
 import com.parcial.tp3.ui.theme.PureBlack
 import androidx.compose.runtime.mutableIntStateOf
 import com.parcial.tp3.ui.screens.cart.CartViewModel
+import com.parcial.tp3.ui.screens.favourites.FavouriteViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -37,18 +38,27 @@ fun ProductDetailScreen(
     productId: Int,
     viewModel: ProductDetailViewModel = hiltViewModel()
 ) {
-    LaunchedEffect(productId) {
-        viewModel.loadProductById(productId)
-    }
 
     val product = viewModel.product
     val isLoading = viewModel.isLoading
     val error = viewModel.errorMessage
     val cartViewModel: CartViewModel = hiltViewModel()
+    val favouriteViewModel: FavouriteViewModel = hiltViewModel()
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
-
     var quantity by remember { mutableIntStateOf(1) }
+    val isFavourite = remember { mutableStateOf(false) }
+
+    LaunchedEffect(product) {
+        product?.let {
+            val fav = favouriteViewModel.isFavourite(it.id)
+            isFavourite.value = fav
+        }
+    }
+
+    LaunchedEffect(productId) {
+        viewModel.loadProductById(productId)
+    }
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) }
@@ -62,7 +72,19 @@ fun ProductDetailScreen(
             NotificationHeader(
                 navController = navController,
                 title = "Product Detail",
-                showFavoriteIcon = true
+                showFavoriteIcon = true,
+                isFavourite = isFavourite.value,
+                onToggleFavourite = {
+                    product?.let {
+                        isFavourite.value = if (isFavourite.value) {
+                            favouriteViewModel.removeFromFavourites(it)
+                            false
+                        } else {
+                            favouriteViewModel.addToFavourites(it)
+                            true
+                        }
+                    }
+                }
             )
             Spacer(modifier = Modifier.height(16.dp))
 

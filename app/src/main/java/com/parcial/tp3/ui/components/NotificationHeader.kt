@@ -14,13 +14,18 @@ import com.parcial.tp3.R
 import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.ui.graphics.Color
+import com.parcial.tp3.ui.theme.AlertRed
 import com.parcial.tp3.ui.theme.PureBlack
 
 @Composable
 fun NotificationHeader(
     navController: NavHostController,
     title: String = "Notification",
-    showFavoriteIcon: Boolean = false
+    showFavoriteIcon: Boolean = false,
+    isFavourite: Boolean = false,
+    onToggleFavourite: () -> Unit = {}
 ) {
     Column {
         Spacer(modifier = Modifier.windowInsetsTopHeight(WindowInsets.statusBars))
@@ -56,11 +61,13 @@ fun NotificationHeader(
                         .size(48.dp)
                         .align(Alignment.CenterEnd)
                 ) {
-                    RoundedIconButton(onClick = { /* TODO: marcar como favorito */ }) {
+                    RoundedIconButton(onClick = onToggleFavourite) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_heart),
-                            contentDescription = "Favorite"
+                            contentDescription = "Favourite",
+                            tint = if (isFavourite) AlertRed else LocalContentColor.current
                         )
+
                     }
                 }
             }

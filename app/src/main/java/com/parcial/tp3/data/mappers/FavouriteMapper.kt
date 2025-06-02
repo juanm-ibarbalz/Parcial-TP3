@@ -1,24 +1,26 @@
 package com.parcial.tp3.data.mappers
 
 import com.parcial.tp3.data.local.entity.FavouriteEntity
-import com.parcial.tp3.domain.model.ProductPreview
+import com.parcial.tp3.domain.model.Product
 
-fun ProductPreview.toEntity(): FavouriteEntity {
-    return FavouriteEntity(
+fun FavouriteEntity.toDomain(): Product {
+    return Product(
         id = id,
-        name = name,
+        title = name,
         price = price,
-        image = image,
-        category = category
+        thumbnail = image,
+        category = category,
+        description = description
     )
 }
 
-fun FavouriteEntity.toDomain(): ProductPreview {
-    return ProductPreview(
+fun Product.toEntity(): FavouriteEntity {
+    return FavouriteEntity(
         id = id,
-        name = name,
+        name = title,
         price = price,
-        image = image,
-        category = category
+        image = thumbnail,
+        category = category,
+        description = description
     )
 }
