@@ -27,6 +27,7 @@ import androidx.compose.material.SwipeToDismiss
 import androidx.compose.material.rememberDismissState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
+import coil.compose.rememberAsyncImagePainter
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -84,7 +85,7 @@ fun CartItemCard(
                     contentAlignment = Alignment.Center
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.image_product_goldenbag_cat),
+                        painter = rememberAsyncImagePainter(item.thumbnail),
                         contentDescription = null,
                         modifier = Modifier
                             .fillMaxSize()
@@ -102,7 +103,7 @@ fun CartItemCard(
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = "for 2–3 years",
+                        text = "A quality product. Just for you.",
                         style = MaterialTheme.typography.bodySmall,
                         color = MediumGrey
                     )

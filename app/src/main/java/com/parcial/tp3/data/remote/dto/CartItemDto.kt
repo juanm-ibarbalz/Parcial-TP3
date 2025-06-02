@@ -6,6 +6,5 @@ data class CartItemDto(
     val price: Double,
     val quantity: Int,
     val total: Double,
-    val discountPercentage: Double,
-    val discountedPrice: Double
+    val thumbnail: String
 )

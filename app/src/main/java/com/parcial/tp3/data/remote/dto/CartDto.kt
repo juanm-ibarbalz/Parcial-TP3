@@ -7,7 +7,6 @@ data class CartDto(
     @SerializedName("userId") val userId: Int,
     val products: List<CartItemDto>,
     val total: Double,
-    val discountedTotal: Double,
     val totalProducts: Int,
     val totalQuantity: Int
 )

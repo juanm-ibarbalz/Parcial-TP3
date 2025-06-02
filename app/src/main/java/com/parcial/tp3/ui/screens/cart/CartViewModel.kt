@@ -1,16 +1,24 @@
     package com.parcial.tp3.ui.screens.cart
 
+    import android.util.Log
     import androidx.lifecycle.ViewModel
     import dagger.hilt.android.lifecycle.HiltViewModel
     import javax.inject.Inject
     import androidx.compose.runtime.*
+    import androidx.lifecycle.viewModelScope
+    import com.parcial.tp3.data.remote.dto.CartProductRequestDto
     import com.parcial.tp3.domain.model.CartItem
     import com.parcial.tp3.shared.ICartService
+    import kotlinx.coroutines.launch
+    import com.parcial.tp3.utils.Constants
 
     @HiltViewModel
     class CartViewModel @Inject constructor(
         private val cartService: ICartService
     ) : ViewModel() {
+
+        var cartId by mutableStateOf<Int?>(null)
+            private set
 
         var cartItems by mutableStateOf<List<CartItem>>(emptyList())
             private set
@@ -21,30 +29,66 @@
         var errorMessage by mutableStateOf<String?>(null)
             private set
 
-//        fun loadCart(userId: Int) {
-//            isLoading = true
-//            errorMessage = null
-////            viewModelScope.launch {
-////                try {
-////                    cartItems = cartService.getCartByUserId(userId).products
-////                } catch (e: Exception) {
-////                    errorMessage = "Error al cargar el carrito"
-////                } finally {
-////                    isLoading = false
-////                }
-////            }
-//
-//        }
-
         fun loadCart() {
-            cartItems = listOf(
-                CartItem(1, "Royal Canin Adult", 40.00, 1, 40.00, 0.0, 40.00),
-                CartItem(2, "Royal Canin Senior", 70.00, 1, 70.00, 0.0, 70.00),
-                CartItem(3, "Royal Canin Baby's", 90.00, 1, 90.00, 0.0, 90.00)
-            )
+            isLoading = true
+            errorMessage = null
+            viewModelScope.launch {
+                try {
+                    val result = cartService.getCartByUserId(Constants.USER_ID)
+                    cartItems = result.products
+                    cartId = result.id
+
+                } catch (e: Exception) {
+                    errorMessage = "Error al cargar el carrito"
+                } finally {
+                    isLoading = false
+                }
+            }
+
         }
 
-        fun removeItem(item: CartItem) {
-            cartItems = cartItems.filterNot { it.id == item.id }
+        fun addToCart(productId: Int, quantity: Int = 1) {
+            viewModelScope.launch {
+                try {
+                    val product = CartProductRequestDto(id = productId, quantity = quantity)
+
+                    val updatedCart = if (cartId != null) {
+                        cartService.updateCart(cartId!!, listOf(product))
+                    } else {
+                        cartService.createCart(Constants.USER_ID, listOf(product)) // Constante hardcodeada para el ejemplo
+                    }
+
+                    cartItems = updatedCart.products
+                    cartId = updatedCart.id
+                } catch (e: Exception) {
+                    errorMessage = "No se pudo agregar el producto"
+                }
+            }
+        }
+
+        fun removeItem(productId: Int) {
+            val updatedItems = cartItems.mapNotNull {
+                when {
+                    it.productId == productId && it.quantity > 1 -> it.copy(quantity = it.quantity - 1)
+                    it.productId == productId && it.quantity == 1 -> null
+                    else -> it
+                }
+            }
+
+            val request = updatedItems.map {
+                CartProductRequestDto(id = it.productId, quantity = it.quantity)
+            }
+
+            viewModelScope.launch {
+                try {
+                    if (cartId != null) {
+                        val updatedCart = cartService.updateCart(cartId!!, request)
+                        cartItems = updatedCart.products
+                        cartId = updatedCart.id
+                    }
+                } catch (e: Exception) {
+                    errorMessage = "Error al eliminar producto del carrito"
+                }
+            }
         }
     }

@@ -11,7 +11,6 @@ fun CartDto.toDomain(): Cart {
         userId = userId,
         products = products.map { it.toDomain() },
         total = total,
-        discountedTotal = discountedTotal,
         totalProducts = totalProducts,
         totalQuantity = totalQuantity
     )
@@ -19,12 +18,11 @@ fun CartDto.toDomain(): Cart {
 
 fun CartItemDto.toDomain(): CartItem {
     return CartItem(
-        id = id,
+        productId = id,
         title = title,
         price = price,
         quantity = quantity,
         total = total,
-        discountPercentage = discountPercentage,
-        discountedPrice = discountedPrice
+        thumbnail = thumbnail
     )
 }

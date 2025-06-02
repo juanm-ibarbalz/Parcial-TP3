@@ -14,6 +14,7 @@ import androidx.navigation.NavHostController
 import com.parcial.tp3.ui.components.CartItemCard
 import com.parcial.tp3.ui.components.CheckoutSummary
 import com.parcial.tp3.ui.components.NotificationHeader
+import android.util.Log
 
 @Composable
 fun CartScreen(
@@ -24,6 +25,7 @@ fun CartScreen(
     LaunchedEffect(Unit) {
         viewModel.loadCart()
     }
+
     val items = viewModel.cartItems
     val isLoading = viewModel.isLoading
     val error = viewModel.errorMessage
@@ -54,8 +56,17 @@ fun CartScreen(
                     modifier = Modifier.weight(1f),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    items(items) { item ->
-                        CartItemCard(item = item, onRemove = { viewModel.removeItem(item) })
+                    val duplicatedItems = items.flatMap { item ->
+                        List(item.quantity) { index ->
+                            item.copy(visualId  = "${item.productId}_$index".hashCode())
+                        }
+                    }
+
+                    items(duplicatedItems, key = { it.visualId }) { item ->
+                        CartItemCard(
+                            item = item,
+                            onRemove = { viewModel.removeItem(item.productId) }
+                        )
                     }
                 }
             }
@@ -64,8 +75,8 @@ fun CartScreen(
         CheckoutSummary(
             itemCount = items.size,
             subtotal = items.sumOf { it.price },
-            tax = 1.99,
-            total = items.sumOf { it.price } + 1.99,
+            tax = items.sumOf { it.price } * 0.21,
+            total = items.sumOf { it.price } + items.sumOf { it.price } * 0.21,
             onCheckout = { /* TODO */ },
             modifier = Modifier
                 .fillMaxWidth()

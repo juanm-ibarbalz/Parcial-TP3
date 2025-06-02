@@ -35,7 +35,7 @@ fun TopIcons(
         }
 
         RoundedIconButton(onClick = {
-            navController.navigate(Screen.Notifications.route)
+            navController.navigate(Screen.Cart.route)
         }) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_notification),
