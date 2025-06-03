@@ -7,7 +7,8 @@ Juan Lamnek
 Francisco Haro
 
 Visión General
-Parcial-TP3 es un framework integral para aplicaciones Android, diseñado para simplificar el desarrollo y mejorar la experiencia del usuario.
+
+Desarrollo de App Mobile
 
 Las características principales incluyen:
 
