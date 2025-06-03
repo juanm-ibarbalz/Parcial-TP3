@@ -1,3 +1,5 @@
+// app/src/main/java/com/parcial/tp3/ui/screens/login/LoginScreen.kt
+
 package com.parcial.tp3.ui.screens.login
 
 import androidx.compose.foundation.clickable
@@ -23,13 +25,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.parcial.tp3.navigation.Screen
 import kotlinx.coroutines.launch
-
+import com.parcial.tp3.ui.screens.login.LoginViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
     navController: NavHostController,
     viewModel: LoginViewModel = hiltViewModel()
 ) {
+    // 1) Ligamos los estados del ViewModel
     val username by viewModel::username
     val password by viewModel::password
     val isLoading by viewModel::isLoading
@@ -40,11 +43,11 @@ fun LoginScreen(
     val scope = rememberCoroutineScope()
     val focusManager = LocalFocusManager.current
 
+    // --- Cuando loginSuccess cambie a true, navegamos a Home y limpiamos el backstack de Login ---
     LaunchedEffect(loginSuccess) {
         if (loginSuccess) {
             navController.navigate(Screen.Home.route) {
                 popUpTo(Screen.Login.route) { inclusive = true }
-                launchSingleTop = true
             }
         }
     }
@@ -81,9 +84,10 @@ fun LoginScreen(
             )
             Spacer(modifier = Modifier.height(32.dp))
 
+            // ——— Campo "Email" / Username ———
             OutlinedTextField(
                 value = username,
-                onValueChange = { viewModel.onUsernameChange(it) },
+                onValueChange = { viewModel.onUsernameChanged(it) }, // ← se llama onUsernameChanged
                 label = { Text(text = "Email") },
                 placeholder = { Text(text = "example@domain.com") },
                 singleLine = true,
@@ -94,10 +98,10 @@ fun LoginScreen(
                 keyboardActions = KeyboardActions(
                     onNext = { focusManager.moveFocus(FocusDirection.Down) }
                 ),
-                isError = viewModel.emailTouched && username.isBlank(),
+                isError = viewModel.usernameTouched && username.isBlank(), // ← usernameTouched en lugar de emailTouched
                 modifier = Modifier.fillMaxWidth()
             )
-            if (viewModel.emailTouched && username.isBlank()) {
+            if (viewModel.usernameTouched && username.isBlank()) {
                 Text(
                     text = "This field is required",
                     color = Color.Red,
@@ -109,9 +113,10 @@ fun LoginScreen(
             }
             Spacer(modifier = Modifier.height(16.dp))
 
+            // ——— Campo "Password" ———
             OutlinedTextField(
                 value = password,
-                onValueChange = { viewModel.onPasswordChange(it) },
+                onValueChange = { viewModel.onPasswordChanged(it) }, // ← se llama onPasswordChanged
                 label = { Text(text = "Password") },
                 placeholder = { Text(text = "••••••••") },
                 singleLine = true,
@@ -123,8 +128,8 @@ fun LoginScreen(
                 keyboardActions = KeyboardActions(
                     onDone = {
                         focusManager.clearFocus()
-                        viewModel.onPasswordTouched()
-                        if (!viewModel.isFormValid()) {
+                        viewModel.onPasswordFocusLost() // ← se llama onPasswordFocusLost
+                        if (username.isBlank() || password.isBlank()) {
                             scope.launch {
                                 snackbarHostState.showSnackbar("Complete all fields")
                             }
@@ -133,7 +138,7 @@ fun LoginScreen(
                         }
                     }
                 ),
-                isError = viewModel.passwordTouched && password.isBlank(),
+                isError = viewModel.passwordTouched && password.isBlank(), // ← passwordTouched está bien
                 modifier = Modifier.fillMaxWidth()
             )
             if (viewModel.passwordTouched && password.isBlank()) {
@@ -147,14 +152,24 @@ fun LoginScreen(
                 )
             }
 
+            // —— Debug (opcional) — mostrar en pantalla lo que se envía —
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = "DEBUG: Enviando -> user='$username', pass='$password'",
+                fontSize = 12.sp,
+                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
+                modifier = Modifier.align(Alignment.Start)
+            )
+
             Spacer(modifier = Modifier.height(32.dp))
 
+            // ——— Botón “Get Started” ———
             Button(
                 onClick = {
                     focusManager.clearFocus()
-                    viewModel.onEmailTouched()
-                    viewModel.onPasswordTouched()
-                    if (!viewModel.isFormValid()) {
+                    viewModel.onUsernameFocusLost()    // ← se llama onUsernameFocusLost
+                    viewModel.onPasswordFocusLost()    // ← se llama onPasswordFocusLost
+                    if (username.isBlank() || password.isBlank()) {
                         scope.launch {
                             snackbarHostState.showSnackbar("Complete all fields")
                         }
@@ -162,13 +177,13 @@ fun LoginScreen(
                         viewModel.login()
                     }
                 },
-                enabled = viewModel.isFormValid() && !isLoading,
+                enabled = username.isNotBlank() && password.isNotBlank() && !isLoading,
                 shape = RoundedCornerShape(8.dp),
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (viewModel.isFormValid() && !isLoading)
+                    containerColor = if (username.isNotBlank() && password.isNotBlank() && !isLoading)
                         MaterialTheme.colorScheme.primary
                     else
                         MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f),
@@ -185,13 +200,15 @@ fun LoginScreen(
                     Text(text = "Get Started", fontSize = 16.sp)
                 }
             }
+
             Spacer(modifier = Modifier.height(24.dp))
 
+            // ——— Mostrar mensaje de error (login fallido) ———
             errorMessage?.let { msg ->
                 LaunchedEffect(msg) {
                     scope.launch {
                         snackbarHostState.showSnackbar(msg)
-                        viewModel.errorMessage = null
+                        viewModel.errorMessage = null // Limpiamos mensaje luego de mostrarlo
                     }
                 }
             }
@@ -199,8 +216,7 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // ——————————————————————————————————————————————————————————————————
-            // Texto “Don’t have an account? Register” para navegar a Register
+            // ——— Texto “Don’t have an account? Register” ———
             Row(
                 modifier = Modifier
                     .fillMaxWidth()

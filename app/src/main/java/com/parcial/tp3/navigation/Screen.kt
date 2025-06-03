@@ -12,9 +12,7 @@ sealed class Screen(
     @DrawableRes val iconRes: Int? = null,
     val label: String? = null
 ) {
-    // ——————————————————————————————————————————————————————————————————
-    // Pantallas del BottomNavBar (solo estas cuatro llevan iconRes + label):
-    // ——————————————————————————————————————————————————————————————————
+    // — Pantallas del BottomNavBar (solo estas llevan iconRes + label) —
     object Home : Screen(
         route = "home",
         iconRes = R.drawable.ic_navbar_home,
@@ -36,11 +34,13 @@ sealed class Screen(
         label = "Perfil"
     )
 
-    object Register : Screen("register", null, "Registro")
+    object Register : Screen(
+        route = "register",
+        iconRes = null,
+        label = "Registro"
+    )
 
-    // ——————————————————————————————————————————————————————————————————
-    // Rutas que no aparecen en BottomNavBar (no llevan iconRes ni label):
-    // ——————————————————————————————————————————————————————————————————
+    // — Rutas que no aparecen en BottomNavBar (no llevan iconRes ni label) —
     object Login : Screen(route = "login")
     object ProductDetail : Screen(route = "productDetail/{productId}") {
         fun createRoute(productId: Int) = "productDetail/$productId"
