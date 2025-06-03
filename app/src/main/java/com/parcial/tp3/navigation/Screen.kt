@@ -1,5 +1,3 @@
-// app/src/main/java/com/parcial/tp3/navigation/Screen.kt
-
 package com.parcial.tp3.navigation
 
 import androidx.annotation.DrawableRes

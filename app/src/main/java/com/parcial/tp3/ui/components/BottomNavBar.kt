@@ -46,11 +46,11 @@ fun BottomNavBar(navController: NavHostController) {
                 label = { Text(text = screen.label!!) },
                 selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                 onClick = {
-                    navController.navigate(screen.route) {
-                        launchSingleTop = true
-                        restoreState = true
-                        popUpTo(navController.graph.startDestinationId) {
-                            saveState = true
+                    val currentRoute = currentDestination?.route
+                    if (currentRoute != screen.route) {
+                        navController.navigate(screen.route) {
+                            launchSingleTop = true
+                            restoreState = true
                         }
                     }
                 }
