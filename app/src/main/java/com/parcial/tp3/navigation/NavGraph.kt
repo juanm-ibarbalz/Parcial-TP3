@@ -20,11 +20,15 @@ import com.parcial.tp3.ui.screens.settings.PrivacyScreen
 import com.parcial.tp3.ui.screens.settings.SecurityScreen
 import com.parcial.tp3.ui.screens.settings.SettingsDetailScreen
 import com.parcial.tp3.ui.screens.settings.NotificationSettingsScreen
+import com.parcial.tp3.ui.screens.onboarding.OnboardingScreen
 
 @Composable
 fun AppNavGraph(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = Screen.Settings.route) {
+    NavHost(navController = navController, startDestination = Screen.Onboarding.route) {
 
+        composable(route = Screen.Onboarding.route) {
+            OnboardingScreen(navController)
+        }
         composable(route = Screen.Login.route) {
             // TODO: LoginScreen(navController)
         }
