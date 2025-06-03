@@ -40,6 +40,7 @@ fun SettingsDetailScreen(
             .fillMaxSize()
             .padding(horizontal = 16.dp)
     ) {
+        Spacer(modifier = Modifier.height(24.dp))
         NotificationHeader(navController = navController, title = "Settings Page")
 
         LazyColumn {

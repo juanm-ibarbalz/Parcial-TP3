@@ -61,7 +61,7 @@ fun HomeScreen(
                 .padding(horizontal = 16.dp, vertical = 8.dp)
                 .padding(paddingValues)
         ) {
-            Spacer(modifier = Modifier.height(48.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
             Row(
                 modifier = Modifier.fillMaxWidth(),

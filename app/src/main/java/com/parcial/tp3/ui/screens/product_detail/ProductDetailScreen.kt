@@ -66,9 +66,9 @@ fun ProductDetailScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 16.dp, vertical = 24.dp)
-                .padding(padding)
+                .padding(horizontal = 16.dp)
         ) {
+            Spacer(modifier = Modifier.height(24.dp))
             NotificationHeader(
                 navController = navController,
                 title = "Product Detail",
