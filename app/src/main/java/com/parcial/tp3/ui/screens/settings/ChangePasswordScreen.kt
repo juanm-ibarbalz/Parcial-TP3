@@ -24,9 +24,9 @@ fun ChangePasswordScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(WindowInsets.statusBars.asPaddingValues())
-            .padding(24.dp)
+            .padding(16.dp)
     ) {
+        Spacer(modifier = Modifier.height(24.dp))
         NotificationHeader(navController = navController, title = "Change Password")
 
         Spacer(modifier = Modifier.height(24.dp))

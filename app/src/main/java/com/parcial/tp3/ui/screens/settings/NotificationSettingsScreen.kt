@@ -23,8 +23,8 @@ fun NotificationSettingsScreen(navController: NavHostController) {
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 16.dp)
-            .padding(WindowInsets.statusBars.asPaddingValues())
     ) {
+        Spacer(modifier = Modifier.height(24.dp))
         NotificationHeader(
             navController = navController,
             title = "Notification"

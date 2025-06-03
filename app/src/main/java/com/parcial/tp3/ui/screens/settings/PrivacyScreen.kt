@@ -18,8 +18,8 @@ fun PrivacyScreen(navController: NavHostController) {
             .fillMaxSize()
             .verticalScroll(rememberScrollState()) // <- hace scroll en toda la pantalla
             .padding(horizontal = 16.dp)
-            .padding(WindowInsets.statusBars.asPaddingValues())
     ) {
+        Spacer(modifier = Modifier.height(24.dp))
         NotificationHeader(
             navController = navController,
             title = "Privacy"

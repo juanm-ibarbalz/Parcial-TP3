@@ -26,9 +26,9 @@ fun SecurityScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(WindowInsets.statusBars.asPaddingValues())
-            .padding(16.dp)
+            .padding(horizontal = 16.dp)
     ) {
+        Spacer(modifier = Modifier.height(24.dp))
         NotificationHeader(navController = navController, title = "Security")
 
         Spacer(modifier = Modifier.height(16.dp))

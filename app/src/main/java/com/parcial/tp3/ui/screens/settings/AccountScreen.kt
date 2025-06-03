@@ -41,9 +41,9 @@ fun AccountScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(WindowInsets.statusBars.asPaddingValues())
             .padding(horizontal = 16.dp)
     ) {
+        Spacer(modifier = Modifier.height(24.dp))
         NotificationHeader(navController = navController, title = "Account")
 
         Spacer(modifier = Modifier.height(8.dp)) // alineación visual con SettingsDetailScreen

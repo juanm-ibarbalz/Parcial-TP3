@@ -23,7 +23,7 @@ import com.parcial.tp3.ui.screens.settings.NotificationSettingsScreen
 
 @Composable
 fun AppNavGraph(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = Screen.Home.route) {
+    NavHost(navController = navController, startDestination = Screen.Settings.route) {
 
         composable(route = Screen.Login.route) {
             // TODO: LoginScreen(navController)

@@ -32,9 +32,9 @@ fun FaqScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 24.dp)
-            .padding(WindowInsets.statusBars.asPaddingValues())
+            .padding(horizontal = 16.dp)
     ) {
+        Spacer(modifier = Modifier.height(24.dp))
         NotificationHeader(
             navController = navController,
             title = "FAQ"
