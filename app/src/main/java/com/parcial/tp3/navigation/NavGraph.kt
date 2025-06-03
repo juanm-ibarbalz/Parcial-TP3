@@ -20,6 +20,7 @@ import com.parcial.tp3.ui.screens.home.HomeScreen
 import com.parcial.tp3.ui.screens.home.NotificationScreen
 import com.parcial.tp3.ui.screens.home.SearchScreen
 import com.parcial.tp3.ui.screens.login.LoginScreen
+import com.parcial.tp3.ui.screens.product_detail.ProductDetailScreen
 import com.parcial.tp3.ui.screens.profile.ProfileScreen
 import com.parcial.tp3.ui.screens.register.RegisterScreen
 
@@ -54,7 +55,7 @@ fun AppNavGraph(
             arguments = listOf(navArgument("productId") { type = NavType.IntType })
         ) { backStackEntry ->
             val productId = backStackEntry.arguments?.getInt("productId") ?: return@composable
-            // Aquí deberías invocar tu ProductDetailScreen(productId, navController)
+            ProductDetailScreen(navController = navController, productId = productId)
         }
 
         // 5. Clock dummy
