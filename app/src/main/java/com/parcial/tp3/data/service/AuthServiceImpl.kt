@@ -6,11 +6,15 @@ import com.parcial.tp3.data.mappers.toDomain
 import com.parcial.tp3.domain.model.User
 import com.parcial.tp3.shared.IAuthService
 import javax.inject.Inject
+import android.util.Log
+
 
 class AuthServiceImpl @Inject constructor(
     private val api: AuthApiService
 ) : IAuthService {
-
+    companion object {
+        private const val TAG = "AuthServiceImpl"
+    }
     override suspend fun login(username: String, password: String): User {
 
         // NOTA:
