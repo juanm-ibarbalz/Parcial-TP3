@@ -9,7 +9,7 @@ fun LoginResponseDto.toDomain(): User {
         username = username,
         email = email,
         fullName = "$firstName $lastName",
-        token = token,
+        token = accessToken,
         image = image
     )
 }

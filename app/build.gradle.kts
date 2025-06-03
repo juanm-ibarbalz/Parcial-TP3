@@ -58,6 +58,7 @@ dependencies {
 
     // Hilt
     implementation(libs.hilt.android)
+    implementation(libs.androidx.media3.common.ktx)
     kapt(libs.hilt.android.compiler)
 
     implementation("androidx.room:room-runtime:2.7.1")
@@ -92,6 +93,16 @@ dependencies {
 
     implementation ("androidx.compose.material:material:1.4.3")
 
-    implementation("androidx.compose.material3:material3:1.2.0")
+    implementation("androidx.compose.material3:material3:1.1.0")
+    // Material Icons para Compose (versiones 1.4.0 coinciden con Compose 1.4.0)
+    implementation("androidx.compose.material:material-icons-core:1.4.0")
+    implementation("androidx.compose.material:material-icons-extended:1.4.0")
+
+    // Hilt + Navigation Compose
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+
+    // Hilt (inyección de dependencias)
+    implementation("com.google.dagger:hilt-android:2.48")
+    kapt("com.google.dagger:hilt-compiler:2.48")
 
 }
