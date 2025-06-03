@@ -19,12 +19,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.parcial.tp3.data.session.UserSession
-import com.parcial.tp3.domain.model.Product   // ← Importa el Product de dominio
+import com.parcial.tp3.domain.model.Product
 
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(
+    navController: NavHostController  // ← ahora recibe navController
+) {
     // 1. Obtenemos el usuario actual desde UserSession
     val currentUserState by UserSession.currentUser.collectAsState()
 

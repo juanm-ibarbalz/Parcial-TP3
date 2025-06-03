@@ -106,7 +106,6 @@ fun RegisterScreen(
                 keyboardActions = KeyboardActions(
                     onNext = { emailTouched = true }
                 )
-                // Sin parámetros de colores personalizados
             )
             if (usernameTouched && !isUsernameValid) {
                 Text(
@@ -141,7 +140,6 @@ fun RegisterScreen(
                 keyboardActions = KeyboardActions(
                     onNext = { passwordTouched = true }
                 )
-                // Sin parámetros de colores personalizados
             )
             if (emailTouched && !isEmailValid) {
                 Text(
@@ -191,7 +189,6 @@ fun RegisterScreen(
                 keyboardActions = KeyboardActions(
                     onDone = { passwordTouched = true }
                 )
-                // Sin parámetros de colores personalizados
             )
             if (passwordTouched && !isPasswordValid) {
                 Text(

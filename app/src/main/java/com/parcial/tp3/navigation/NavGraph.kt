@@ -13,15 +13,15 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+
 import com.parcial.tp3.ui.screens.cart.CartScreen
 import com.parcial.tp3.ui.screens.home.BestSellersScreen
 import com.parcial.tp3.ui.screens.home.HomeScreen
 import com.parcial.tp3.ui.screens.home.NotificationScreen
 import com.parcial.tp3.ui.screens.home.SearchScreen
 import com.parcial.tp3.ui.screens.login.LoginScreen
-import com.parcial.tp3.ui.screens.product_detail.ProductDetailScreen
 import com.parcial.tp3.ui.screens.profile.ProfileScreen
-import com.parcial.tp3.ui.screens.register.RegisterScreen  // ← Import para la pantalla Register
+import com.parcial.tp3.ui.screens.register.RegisterScreen
 
 @Composable
 fun AppNavGraph(
@@ -38,7 +38,7 @@ fun AppNavGraph(
             LoginScreen(navController = navController)
         }
 
-        // 2. RegisterScreen  ← Registramos la ruta de Register
+        // 2. RegisterScreen
         composable(route = Screen.Register.route) {
             RegisterScreen(navController = navController)
         }
@@ -48,13 +48,13 @@ fun AppNavGraph(
             HomeScreen(navController = navController)
         }
 
-        // 4. ProductDetail con argumento
+        // 4. ProductDetail con argumento (aún pendiente de llamar al composable real)
         composable(
             route = Screen.ProductDetail.route,
             arguments = listOf(navArgument("productId") { type = NavType.IntType })
         ) { backStackEntry ->
             val productId = backStackEntry.arguments?.getInt("productId") ?: return@composable
-            ProductDetailScreen(navController = navController, productId = productId)
+            // Aquí deberías invocar tu ProductDetailScreen(productId, navController)
         }
 
         // 5. Clock dummy
@@ -97,9 +97,9 @@ fun AppNavGraph(
             SearchScreen(navController = navController)
         }
 
-        // 11. Profile placeholder
+        // 11. ProfileScreen real
         composable(route = Screen.Profile.route) {
-            ProfileScreen()
+            ProfileScreen(navController = navController)
         }
     }
 }
