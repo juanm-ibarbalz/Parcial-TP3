@@ -1,5 +1,3 @@
-// app/src/main/java/com/parcial/tp3/ui/screens/register/RegisterScreen.kt
-
 package com.parcial.tp3.ui.screens.register
 
 import android.util.Patterns

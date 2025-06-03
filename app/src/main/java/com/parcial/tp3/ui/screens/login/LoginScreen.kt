@@ -1,5 +1,3 @@
-// app/src/main/java/com/parcial/tp3/ui/screens/login/LoginScreen.kt
-
 package com.parcial.tp3.ui.screens.login
 
 import androidx.compose.foundation.clickable
@@ -148,15 +146,6 @@ fun LoginScreen(
                 )
             }
 
-            // —— Aquí mostramos en pantalla (para debug) los valores que está enviando el usuario:
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = "DEBUG: Enviando -> user='$username', pass='$password'",
-                fontSize = 12.sp,
-                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
-                modifier = Modifier.align(Alignment.Start)
-            )
-
             Spacer(modifier = Modifier.height(32.dp))
 
             Button(
@@ -195,18 +184,6 @@ fun LoginScreen(
                     Text(text = "Get Started", fontSize = 16.sp)
                 }
             }
-
-            // —— Mostrar la respuesta de DummyJSON como texto (si ya llegó):
-            if (viewModel.loginSuccess) {
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = "DEBUG: Login OK – token = ${viewModel.loggedUser?.token}",
-                    fontSize = 12.sp,
-                    color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.align(Alignment.Start)
-                )
-            }
-
             Spacer(modifier = Modifier.height(24.dp))
 
             errorMessage?.let { msg ->

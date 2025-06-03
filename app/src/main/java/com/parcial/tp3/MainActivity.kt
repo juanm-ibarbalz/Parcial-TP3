@@ -1,5 +1,3 @@
-// app/src/main/java/com/parcial/tp3/MainActivity.kt
-
 package com.parcial.tp3
 
 import android.os.Bundle
@@ -39,8 +37,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainContent() {
     val navController = rememberNavController()
-
-    // Observamos la ruta actual para decidir si mostramos la BottomNavBar
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
 

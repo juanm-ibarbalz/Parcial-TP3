@@ -1,6 +1,11 @@
 package com.parcial.tp3.navigation
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -11,7 +16,11 @@ import com.parcial.tp3.ui.screens.home.BestSellersScreen
 import com.parcial.tp3.ui.screens.home.HomeScreen
 import com.parcial.tp3.ui.screens.home.NotificationScreen
 import com.parcial.tp3.ui.screens.home.SearchScreen
+import com.parcial.tp3.ui.screens.login.LoginScreen
+import com.parcial.tp3.ui.screens.onboarding.OnboardingScreen
 import com.parcial.tp3.ui.screens.product_detail.ProductDetailScreen
+import com.parcial.tp3.ui.screens.profile.ProfileScreen
+import com.parcial.tp3.ui.screens.register.RegisterScreen
 import com.parcial.tp3.ui.screens.settings.AccountScreen
 import com.parcial.tp3.ui.screens.settings.ChangeEmailScreen
 import com.parcial.tp3.ui.screens.settings.ChangePasswordScreen
@@ -22,11 +31,15 @@ import com.parcial.tp3.ui.screens.settings.SettingsDetailScreen
 import com.parcial.tp3.ui.screens.settings.NotificationSettingsScreen
 
 @Composable
-fun AppNavGraph(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = Screen.Settings.route) {
+fun AppNavGraph(navController: NavHostController, modifier: Modifier) {
+    NavHost(navController = navController, startDestination = Screen.Onboarding.route) {
 
         composable(route = Screen.Login.route) {
-            // TODO: LoginScreen(navController)
+            LoginScreen(navController = navController)
+        }
+
+        composable(route = Screen.Register.route) {
+            RegisterScreen(navController = navController)
         }
 
         composable(route = Screen.Home.route) {
@@ -42,7 +55,16 @@ fun AppNavGraph(navController: NavHostController) {
         }
 
         composable(route = Screen.Cart.route) {
-            // TODO: CartScreen()
+            CartScreen(navController = navController)
+        }
+
+        composable(route = Screen.DummyClock.route) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(text = "Pantalla Reloj (dummy)")
+            }
         }
 
         composable(route = Screen.Settings.route) {
@@ -104,6 +126,14 @@ fun AppNavGraph(navController: NavHostController) {
 
         composable("faq") {
             FaqScreen(navController = navController)
+        }
+
+        composable(route = Screen.Profile.route) {
+            ProfileScreen()
+        }
+
+        composable(route = Screen.Onboarding.route) {
+            OnboardingScreen(navController = navController)
         }
     }
 }

@@ -1,5 +1,3 @@
-// app/src/main/java/com/parcial/tp3/ui/components/BottomNavBar.kt
-
 package com.parcial.tp3.ui.components
 
 import androidx.compose.material3.NavigationBar

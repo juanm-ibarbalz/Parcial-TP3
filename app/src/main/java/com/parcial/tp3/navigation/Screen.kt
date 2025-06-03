@@ -51,4 +51,5 @@ sealed class Screen(
     object Notifications : Screen(route = "notifications")
     object BestSellers : Screen(route = "best_sellers")
     object Search : Screen(route = "search")
+    object Onboarding : Screen("onboarding")
 }
