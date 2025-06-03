@@ -21,4 +21,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "Parcial-TP3"
 include(":app")
- 
